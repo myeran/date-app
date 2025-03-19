@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הצגת תאריך</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            direction: rtl;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #date-result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>הצגת התאריך והשעה הנוכחיים</h1>
+    <button id="get-date-btn">הצג תאריך ושעה</button>
+    <div id="date-result"></div>
+
+    <script>
+        document.getElementById('get-date-btn').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/get_date');
+                const data = await response.json();
+                document.getElementById('date-result').textContent = 'התאריך והשעה כעת: ' + data.date;
+            } catch (error) {
+                console.error('שגיאה:', error);
+                document.getElementById('date-result').textContent = 'אירעה שגיאה בקבלת התאריך';
+            }
+        });
+    </script>
+</body>
+</html>
